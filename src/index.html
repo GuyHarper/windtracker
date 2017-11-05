@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="darkSky">
+<head>
+  <title>WindTracker</title>
+  <base href="/">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2I_R7qhHCJQJUCwv9Mph8mZi3aDdJLGc"></script>
+  <!-- inject:js -->
+  <!-- endinject -->
+  <!-- inject:css -->
+  <!-- endinject -->
+</head>
+<body ng-controller="WeatherShowCtrl as weatherShow">
+  <h1>WindTracker</h1>
+  <google-map center="weatherShow.center" position="weatherShow.position"></google-map>
+  <button ng-click="weatherShow.getWeather()">Click</button>
+</body>
+</html>
