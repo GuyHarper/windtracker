@@ -17,6 +17,7 @@ function WeatherShowCtrl($http) {
   function getWeather() {
     $http.get('/api/weather', { params: { lat, lng } })
       .then((response) => {
+        console.log(response);
         const timeEnsued = response.data.currently.time - time;
         time = response.data.currently.time;
         windSpeed = response.data.currently.windSpeed;
