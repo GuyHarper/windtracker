@@ -4,8 +4,8 @@ angular
   .module('darkSky')
   .controller('WeatherShowCtrl', WeatherShowCtrl);
 
-WeatherShowCtrl.$injects = ['$http', 'API'];
-function WeatherShowCtrl($http, API) {
+WeatherShowCtrl.$injects = ['$http'];
+function WeatherShowCtrl($http) {
   const vm = this;
   let lat = 51.5152552;
   let lng = -0.0745329;
@@ -15,7 +15,7 @@ function WeatherShowCtrl($http, API) {
   vm.center = { lat, lng };
 
   function getWeather() {
-    $http.get(`${API}/weather`, { params: { lat, lng } })
+    $http.get('https://localhost:7000/api/weather', { params: { lat, lng } })
       .then((response) => {
         const timeEnsued = response.data.currently.time - time;
         time = response.data.currently.time;
