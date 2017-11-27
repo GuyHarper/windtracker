@@ -14,6 +14,10 @@ function WeatherShowCtrl($http) {
   let time = 0;
   vm.center = { lat, lng };
 
+  function startWeatherTracking() {
+    window.setInterval(getWeather, 2000);
+  }
+
   function getWeather() {
     $http.get('/api/weather', { params: { lat, lng } })
       .then((response) => {
@@ -47,5 +51,5 @@ function WeatherShowCtrl($http) {
         vm.position = { lat, lng };
       });
   }
-  vm.getWeather = getWeather;
+  vm.startWeatherTracking = startWeatherTracking;
 }
