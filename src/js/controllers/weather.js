@@ -19,9 +19,9 @@ function WeatherShowCtrl($http) {
   }
 
   function getWeather() {
-    $http.get('/api/weather', { params: { lat, lng } })
+    $http.get('/api/weather', { params: { lat, lng }})
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         const timeEnsued = response.data.currently.time - time;
         time = response.data.currently.time;
         windSpeed = response.data.currently.windSpeed;
@@ -41,7 +41,7 @@ function WeatherShowCtrl($http) {
           lat += 1/(111132.954 - 559.822 * Math.cos( 2 * changeX ) + 1.175 * Math.cos( 4 * changeX));
           const changeY = windSpeed * Math.sin(3 * Math.PI/2 - radianWindBearing) * timeEnsued;
           lng += 1/(111132.954 * Math.cos( changeY ));
-        } else if(response.data.currently.windBearing < 270) {
+        } else if(response.data.currently.windBearing < 360) {
           const changeX = windSpeed * Math.sin(2 * Math.PI - radianWindBearing) * timeEnsued;
           lat += 1/(111132.954 - 559.822 * Math.cos( 2 * changeX ) + 1.175 * Math.cos( 4 * changeX));
           const changeY = -windSpeed * Math.cos(2 * Math.PI - radianWindBearing) * timeEnsued;
@@ -49,6 +49,8 @@ function WeatherShowCtrl($http) {
         }
 
         vm.position = { lat, lng };
+        vm.windSpeed = windSpeed;
+        vm.bearing = response.data.currently.windBearing;
       });
   }
   vm.startWeatherTracking = startWeatherTracking;

@@ -20,6 +20,10 @@ function googleMap() {
         zoom: 14
       });
 
+      map.addListener('click', (e) => {
+        map.panTo(e.latLng);
+      });
+
       const centreMarker = new google.maps.Marker({
         map: map
       });

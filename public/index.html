@@ -12,7 +12,15 @@
   <!-- endinject -->
 </head>
 <body ng-controller="WeatherShowCtrl as weatherShow">
-  <h1>WindTracker</h1>
+  <header>
+    <h1>WindTracker</h1>
+    <div class="info" ng-if="weatherShow.position.lat">
+      <p>Lat: {{weatherShow.position.lat}}</p>
+      <p>Lng: {{weatherShow.position.lng}}</p>
+      <p>Wind speed: {{weatherShow.windSpeed}}m/s</p>
+      <p>Bearing: {{weatherShow.bearing}}&deg;</p>
+    </div>
+  </header>
   <google-map center="weatherShow.center" position="weatherShow.position"></google-map>
   <button ng-click="weatherShow.startWeatherTracking()">Click</button>
 </body>
