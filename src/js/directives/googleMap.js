@@ -21,7 +21,11 @@ function googleMap() {
       });
 
       map.addListener('click', (e) => {
-        map.panTo(e.latLng);
+        $scope.position = {
+          lat: e.latLng.lat(),
+          lng: e.latLng.lng()
+        };
+        console.log($scope.position);
       });
 
       const centreMarker = new google.maps.Marker({
@@ -42,8 +46,8 @@ function googleMap() {
           map: map,
           position: $scope.position
         });
-
         markers.push(marker);
+        map.panTo($scope.position);
       });
 
     }
