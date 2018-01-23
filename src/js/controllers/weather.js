@@ -4,24 +4,27 @@ angular
   .module('darkSky')
   .controller('WeatherShowCtrl', WeatherShowCtrl);
 
-WeatherShowCtrl.$injects = ['$http'];
-function WeatherShowCtrl($http) {
+WeatherShowCtrl.$injects = ['$http', '$scope'];
+function WeatherShowCtrl($http, $scope) {
   const vm = this;
-  let lat = 51.5152552;
-  let lng = -0.0745329;
+  let lat = 0;
+  let lng = 0;
   let windSpeed = 0;
   let radianWindBearing = 0;
   let time = 0;
   vm.center = { lat, lng };
+  vm.position = null;
 
-  function startWeatherTracking() {
+  $scope.$on('changeLocation', function(event, position) {
+    lat = position.lat;
+    lng = position.lng;
+    vm.position = { lat, lng };
     window.setInterval(getWeather, 2000);
-  }
+  });
 
   function getWeather() {
     $http.get('/api/weather', { params: { lat, lng }})
       .then((response) => {
-        console.log(response.data);
         const timeEnsued = response.data.currently.time - time;
         time = response.data.currently.time;
         windSpeed = response.data.currently.windSpeed;
@@ -49,9 +52,10 @@ function WeatherShowCtrl($http) {
         }
 
         vm.position = { lat, lng };
+
+        vm.center = { lat, lng };
         vm.windSpeed = windSpeed;
         vm.bearing = response.data.currently.windBearing;
       });
   }
-  vm.startWeatherTracking = startWeatherTracking;
 }
