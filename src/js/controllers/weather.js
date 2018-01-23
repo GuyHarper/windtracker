@@ -19,6 +19,7 @@ function WeatherShowCtrl($http, $scope) {
     lat = position.lat;
     lng = position.lng;
     vm.position = { lat, lng };
+    getWeather();
     window.setInterval(getWeather, 2000);
   });
 
